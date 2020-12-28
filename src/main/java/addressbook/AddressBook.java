@@ -113,6 +113,7 @@ public class AddressBook {
             System.out.print("Delete: 3 \n");
             System.out.print("Sort by first name: 4 \n");
             System.out.print("Sort by City command: 5 \n");
+            System.out.print("Find all Person by City and State command: 6 \n");
             command=addressBook.scanner.nextInt();
             switch(command){
                 case 1:
@@ -136,7 +137,14 @@ public class AddressBook {
                     System.out.print("Sorted list by City: ");
                     System.out.println(addressBook.sortByCity());
                     break;
-
+                case 6:
+                    addressBook.scanner.nextLine();
+                    System.out.print("Enter City");
+                    String city = addressBook.scanner.nextLine();
+                    System.out.print("Enter State");
+                    String state = addressBook.scanner.nextLine();
+                    System.out.println(addressBook.findByCityAndState(city, state));
+                    break;
 
             }
         }while(command !=0);
@@ -221,5 +229,12 @@ public class AddressBook {
                 sorted(Comparator.comparing(Person::getCity)).
                 collect(Collectors.toList());
         return sortedPersonList;
+    }
+    public List<Person> findByCityAndState(String city,String state) {
+        List<Person> matchedPersonList = this.personList.stream().
+                filter(p -> p.getCity().equals(city) && p.getState().equals(state)).
+                collect(Collectors.toList());
+
+        return matchedPersonList;
     }
 }
