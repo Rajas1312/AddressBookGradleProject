@@ -113,8 +113,9 @@ public class AddressBook {
             System.out.print("Delete: 3 \n");
             System.out.print("Sort by first name: 4 \n");
             System.out.print("Sort by City command: 5 \n");
-            System.out.print("Find all Person by City and State command: 6 \n");
-            System.out.print("count all Person by City and State command: 7 \n");
+            System.out.print("Find all Person by City command: 6 \n");
+            System.out.print("Find all Person by City and State command: 7 \n");
+            System.out.print("count all Person by City and State command: 8 \n");
             command=addressBook.scanner.nextInt();
             switch(command){
                 case 1:
@@ -140,13 +141,18 @@ public class AddressBook {
                     break;
                 case 6:
                     addressBook.scanner.nextLine();
+                    System.out.print("Enter city name: ");
+                    System.out.println(addressBook.findByCity(addressBook.scanner.nextLine()));
+                    break;
+                case 7:
+                    addressBook.scanner.nextLine();
                     System.out.print("Enter City");
                     String city = addressBook.scanner.nextLine();
                     System.out.print("Enter State");
                     String state = addressBook.scanner.nextLine();
                     System.out.println(addressBook.findByCityAndState(city, state));
                     break;
-                case 7:
+                case 8:
                     addressBook.scanner.nextLine();
                     System.out.print("Enter City");
                     String city1 = addressBook.scanner.nextLine();
@@ -193,32 +199,25 @@ public class AddressBook {
             System.out.print("Enter last name:");
             String lastName = scanner.nextLine();
             editPerson.setLastName(lastName);
-
             System.out.print("Enter city:");
             String city = scanner.nextLine();
             editPerson.setCity(city);
-
             System.out.print("Enter state:");
             String state = scanner.nextLine();
             editPerson.setState(state);
-
             System.out.print("Enter zip:");
             String zip = scanner.nextLine();
             editPerson.setZip(zip);
-
             System.out.print("Enter phonenumber:");
             String phone = scanner.nextLine();
             editPerson.setPhone(phone);
-
             System.out.println("Edited person : " + editPerson);
         }
         else {
             System.out.println("Person with first name : "+firstName+" does not exists.");
         }
-
     }
     public void deletePersonFirstName (String firstName) {
-
         if(this.personExistsCheckByFirstName(firstName)) {
             this.personList.removeIf(Person -> Person.equals(firstName));
             System.out.println("The person "+firstName + " was deleted");
@@ -239,11 +238,16 @@ public class AddressBook {
                 collect(Collectors.toList());
         return sortedPersonList;
     }
+    public List<Person> findByCity(String city) {
+        List<Person> matchedPersonList = this.personList.stream().
+                filter(p -> p.getCity().equals(city)).
+                collect(Collectors.toList());
+        return matchedPersonList;
+    }
     public List<Person> findByCityAndState(String city,String state) {
         List<Person> matchedPersonList = this.personList.stream().
                 filter(p -> p.getCity().equals(city) && p.getState().equals(state)).
                 collect(Collectors.toList());
-
         return matchedPersonList;
     }
     public long countPerson(String city ,String state) {
