@@ -112,6 +112,7 @@ public class AddressBook {
             System.out.print("Edit command: 2 \n");
             System.out.print("Delete: 3 \n");
             System.out.print("Sort by first name: 4 \n");
+            System.out.print("Sort by City command: 5 \n");
             command=addressBook.scanner.nextInt();
             switch(command){
                 case 1:
@@ -130,8 +131,12 @@ public class AddressBook {
                 case 4:
                     System.out.print("Sorted list by first name: ");
                     System.out.println(addressBook.sortByFirstName());
-
                     break;
+                case 5:
+                    System.out.print("Sorted list by City: ");
+                    System.out.println(addressBook.sortByCity());
+                    break;
+
 
             }
         }while(command !=0);
@@ -211,5 +216,10 @@ public class AddressBook {
                 collect(Collectors.toList());
         return sort;
     }
-    
+    public List<Person> sortByCity() {
+        List<Person> sortedPersonList = this.personList.stream().
+                sorted(Comparator.comparing(Person::getCity)).
+                collect(Collectors.toList());
+        return sortedPersonList;
+    }
 }
