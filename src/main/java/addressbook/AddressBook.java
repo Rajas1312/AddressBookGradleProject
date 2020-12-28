@@ -104,11 +104,19 @@ public class AddressBook {
 
 
         do{
+            System.out.print("Enter command: \n");
+            System.out.print("Exit : 0 \n");
+            System.out.print("Add command: 1 \n");
+            System.out.print("Edit command: 2 \n");
             command=addressBook.scanner.nextInt();
             switch(command){
                 case 1:
                     addressBook.scanner.nextLine();
                     addressBook.addPerson();
+                    break;
+                case 2:
+                    addressBook.scanner.nextLine();
+                    addressBook.editPerson();
                     break;
             }
         }while(command !=0);
@@ -136,5 +144,40 @@ public class AddressBook {
         else {
             System.out.println("Person with first name : "+firstName+" already exists.");
         }
+    }
+    public Person getPersonByFirstName (String firstName) {
+        return this.personList.stream().filter(Person -> Person.equals(firstName)).findFirst().get();
+    }
+    public void editPerson () {
+        System.out.println("Enter first name:");
+        String firstName = scanner.nextLine();
+        if (this.personExistsCheckByFirstName(firstName)) {
+            Person editPerson = this.getPersonByFirstName(firstName);
+            System.out.print("Enter last name:");
+            String lastName = scanner.nextLine();
+            editPerson.setLastName(lastName);
+
+            System.out.print("Enter city:");
+            String city = scanner.nextLine();
+            editPerson.setCity(city);
+
+            System.out.print("Enter state:");
+            String state = scanner.nextLine();
+            editPerson.setState(state);
+
+            System.out.print("Enter zip:");
+            String zip = scanner.nextLine();
+            editPerson.setZip(zip);
+
+            System.out.print("Enter phonenumber:");
+            String phone = scanner.nextLine();
+            editPerson.setPhone(phone);
+
+            System.out.println("Edited person : " + editPerson);
+        }
+        else {
+            System.out.println("Person with first name : "+firstName+" does not exists.");
+        }
+
     }
 }
