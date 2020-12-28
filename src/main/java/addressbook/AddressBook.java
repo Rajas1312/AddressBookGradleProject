@@ -108,6 +108,7 @@ public class AddressBook {
             System.out.print("Exit : 0 \n");
             System.out.print("Add command: 1 \n");
             System.out.print("Edit command: 2 \n");
+            System.out.print("Delete: 3 \n");
             command=addressBook.scanner.nextInt();
             switch(command){
                 case 1:
@@ -117,6 +118,12 @@ public class AddressBook {
                 case 2:
                     addressBook.scanner.nextLine();
                     addressBook.editPerson();
+                    break;
+                case 3:
+                    addressBook.scanner.nextLine();
+                    System.out.print("Enter first name to delete");
+                    addressBook.deletePersonFirstName(addressBook.scanner.nextLine());
+
                     break;
             }
         }while(command !=0);
@@ -180,4 +187,15 @@ public class AddressBook {
         }
 
     }
+    public void deletePersonFirstName (String firstName) {
+
+        if(this.personExistsCheckByFirstName(firstName)) {
+            this.personList.removeIf(Person -> Person.equals(firstName));
+            System.out.println("The person "+firstName + " was deleted");
+        }
+        else {
+            System.out.println("The person "+firstName+ " does not exist");
+        }
+    }
+    
 }
