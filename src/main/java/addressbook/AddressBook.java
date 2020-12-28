@@ -116,6 +116,7 @@ public class AddressBook {
             System.out.print("Find all Person by City command: 6 \n");
             System.out.print("Find all Person by City and State command: 7 \n");
             System.out.print("count all Person by City and State command: 8 \n");
+            System.out.println("Print all persons: 9 \n");
             command=addressBook.scanner.nextInt();
             switch(command){
                 case 1:
@@ -160,7 +161,12 @@ public class AddressBook {
                     String state1 = addressBook.scanner.nextLine();
                     System.out.println(addressBook.countPerson(city1, state1));
                     break;
-
+                case 9:
+                    System.out.print("All Persons: ");
+                    System.out.println(addressBook.personList);
+                    break;
+                default:
+                    System.out.println("Worng command!");
             }
         }while(command !=0);
     }
