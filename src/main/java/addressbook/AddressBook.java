@@ -1,8 +1,10 @@
 package addressbook;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 class Person{
     String firstName,lastName,city,state,zip,phone;
@@ -109,6 +111,7 @@ public class AddressBook {
             System.out.print("Add command: 1 \n");
             System.out.print("Edit command: 2 \n");
             System.out.print("Delete: 3 \n");
+            System.out.print("Sort by first name: 4 \n");
             command=addressBook.scanner.nextInt();
             switch(command){
                 case 1:
@@ -123,8 +126,13 @@ public class AddressBook {
                     addressBook.scanner.nextLine();
                     System.out.print("Enter first name to delete");
                     addressBook.deletePersonFirstName(addressBook.scanner.nextLine());
+                    break;
+                case 4:
+                    System.out.print("Sorted list by first name: ");
+                    System.out.println(addressBook.sortByFirstName());
 
                     break;
+
             }
         }while(command !=0);
     }
@@ -196,6 +204,12 @@ public class AddressBook {
         else {
             System.out.println("The person "+firstName+ " does not exist");
         }
+    }
+    public List<Person> sortByFirstName() {
+        List<Person> sort= this.personList.stream().
+                sorted(Comparator.comparing(Person::getFirstName)).
+                collect(Collectors.toList());
+        return sort;
     }
     
 }
